@@ -1,13 +1,3 @@
 {
-  "type": "service_account",
-  "project_id": "ocr-braillescan",
-  "private_key_id": "bfb00c6c80b0f9dbe0da88d077f87a648fd980b7",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCjeSLOtaHsJmMC\n/FRH0dECb5aCF1NX9KDC9VOsobQBVryEBtIPnnp4ZiGsocLwl0Q5T6pV/tOvSGzE\np0jJLs41xO4eWwnEAj+oGGm9FBlkXb9BTDf6tIcM6TJRmmIha/LC7oniQYtYzaD+\nKYzGlL86mq3MULvkmhXH585eiPtTb7NVWziWH6gy4vY/i4hYCU/iLySJ3gZLjPtv\nn3rPxNa2dllddTK2RvG3fNzs3a8nNweqGEzrT8LaPJEwboRsevjbtFANOu1Q0lGV\nlu8aGAizRr7UniMR4fPChZGobxP/5bpqNTgzjScb8c/s0i6hlSlJxezUl9Fx709X\nkaRLSIjzAgMBAAECggEALaq1cpGC/nlqx3a+BKI0hT2vCgCCI9wO3OezzFIP+x/D\n4g4VuI9JH0FIvvUhhBx9zpTWvNdHQ3w0BmvFBY6xxIuTCZ/dBoiqR8cqIsvum/8k\nYpVsPfkYkR7EE8/RAg0p8BK7Kh2tU8194AKzdPYwxapYSu9yzdXNp9614+rYauIi\n3NJdGw2SoA13rwGIzsYcoPdAvWuAYuKN7OyYNmTkpxv97vQLEZsq1y8MtcFNmzh0\nlHvUYC0GbZEe5WHxq8iYRODLYMmdLf3DpHqnfMKS3FHXDSPEQLc4N9maGEFClfpt\nANo7gmhcRZcH4v6naALeK1KvdJbH2Z7tb2CMBxV1QQKBgQDbqqw/XDQyuxAd/IUc\nMFCMgaNwUOytoTOPTxKiQ29fwovteKpIyBoJKlCTz0E8b0tO6ABZOK9l4tEm4lfr\nmsSeY+QU8HlqH68XVXp851SByfCjqqXumYusWCcOAE03CVR76kYPdn5XgtRl62NV\n+alQ7lEf6FvI01MvtXiylnBrSQKBgQC+gxEND+71h3u06AHIYefsDW7DbS4B02sH\nkapACUUlWSSwFuFCHJ+eTAq6XcrvuAD6hViKi7v1AkbUURjKoVsEFrNsJHXryjzg\nncPLavJKk5VDDr9NhVISLnDVLe4kdGZb0XAFYXF+PvZosNsKdDVdccLXq/5VsCI0\nk03AjCk2WwKBgGccf0wikNH7Yv5gaW8o8rZxp/Fx2xdJovUzLdEDDIWLwbkPugb9\n/tKsjTRExh+DMntwhbFb3WFbDchN2O1cMc0ToJ1/n86D3uF6G0wEHnPqAc4hrVAJ\nvTmCC5sT4yrhc0nTV12sxnN3kxHgYzmZPrQhmez7WhIzuEmdynEyEsUZAoGAS7zD\nXJQHBalU7riFbOovT1KPxDV1Ythv5lRsgISu7ogf47lU1/mVI1NLuIdtFBvsl6vH\nZVzj3iWHjwSmfHflPRzhO47LKm/9/7X4jrf3ltpRLpWATAtCc2PvC3D1CZ0UzE/Y\n3uq8OdpCD6Cvk9pbFMkTEraXp+0bzBb7hB60i50CgYEAv04C6Mb3cft2P60iCaH4\nK/MRBZ2rIYpGvkcTEcaKIQvAemygqpGhxb4KhY+pV9WPwkRCJg3DDtmheZavKe1a\nPcPM92fFeKg0/2EaZgsSPnyd+MjNrKHI0WCTYR5c6fhfwcGgQFYxC4ChTh+XlW6S\nCBfBEUeoBJ1Ih1U0GaWhwtg=\n-----END PRIVATE KEY-----\n",
-  "client_email": "ocr-bsc@ocr-braillescan.iam.gserviceaccount.com",
-  "client_id": "111527834838636775031",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ocr-bsc%40ocr-braillescan.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
+your key
 }
