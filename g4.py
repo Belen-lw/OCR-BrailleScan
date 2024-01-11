@@ -154,8 +154,8 @@ def WindowPrint():
 
         if evPrint == 'Imprimir':
             gcode_commands = ImagetoText.text_to__braille_gcode(CorrectText)
-            port_name = 'COM11'
-            #port_name = "/dev/ttyUSB0"
+            #port_name = 'COM11'
+            port_name = "/dev/ttyUSB0"
             baud_rate = 250000
             ser = serial.Serial(port_name, baud_rate, timeout=1)
             sleep(1)
@@ -340,6 +340,7 @@ def capturar_video(cap,window2):
         if not ret:
             window2.hide()
             sg.popup_error("Error al capturar video desde la cámara.")
+            
             window2.un_hide()
             break
 
@@ -360,7 +361,7 @@ def capturar_video(cap,window2):
     
 def mainBsc():
     global se
-    cap=cv2.VideoCapture(1)   
+    cap=cv2.VideoCapture(0)   
     top_banner = [
         [sg.Text('BrailleScan                ', font='Any 20', background_color=DARK_HEADER_COLOR,pad=(BPAD_TOP)),
         sg.Text(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), font='Any 14', background_color=DARK_HEADER_COLOR)]]
@@ -402,17 +403,68 @@ def mainBsc():
         elif event == 'Mostrar cámara D':
             #sg.popup('Button a pressed!')
             cap = cv2.VideoCapture(0)
-            capturar_video(cap,window2)
-            frame==cv2.resize(fondoP2.copy(), P2camsize)
-            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
-            window2['-CAMARA-'].update(data=imgbytes)
+            ret, frame = cap.read()
+            if not ret:
+                window2.hide()
+                sg.popup_error("camara Derecha no conectada")
+                window2.un_hide()
+            else:
+                while True:
+                    ret, frame = cap.read()
+                    if not ret:
+                        window2.hide()
+                        sg.popup_error("Error al capturar video desde la cámara.")                 
+                        window2.un_hide()
+                        break
+
+                    # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
+                    imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+
+                    window2['-CAMARA-'].update(data=imgbytes)
+
+                    evento, _ = window2.read(timeout=20)
+                    if evento == 'salir de cámara':
+                        frame=fondoP2.copy()
+                        frame=cv2.resize(fondoP2.copy(), P2camsize)
+                        imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                        window2['-CAMARA-'].update(data=imgbytes)
+                        break
+                
+                frame==cv2.resize(fondoP2.copy(), P2camsize)
+                imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                window2['-CAMARA-'].update(data=imgbytes)
         elif event == 'Mostrar cámara I':
-            #sg.popup('Button B pressed!')
-            cap = cv2.VideoCapture(1)
-            capturar_video(cap,window2)
-            frame=cv2.resize(fondoP2.copy(), P2camsize)
-            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
-            window2['-CAMARA-'].update(data=imgbytes)
+            cap1 = cv2.VideoCapture(1)
+            ret, frame = cap1.read()
+            if not ret:
+                window2.hide()
+                sg.popup_error("camara Izquierda no conectada")
+                window2.un_hide()
+            else:
+                while True:
+                    ret, frame = cap1.read()
+                    if not ret:
+                        window2.hide()
+                        sg.popup_error("Error al capturar video desde la cámara.")                 
+                        window2.un_hide()
+                        break
+
+                    # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
+                    imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+
+                    window2['-CAMARA-'].update(data=imgbytes)
+
+                    evento, _ = window2.read(timeout=20)
+                    if evento == 'salir de cámara':
+                        frame=fondoP2.copy()
+                        frame=cv2.resize(fondoP2.copy(), P2camsize)
+                        imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                        window2['-CAMARA-'].update(data=imgbytes)
+                        break
+                
+                frame==cv2.resize(fondoP2.copy(), P2camsize)
+                imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                window2['-CAMARA-'].update(data=imgbytes)
             
         elif event == 'Escanear I':
             cap = cv2.VideoCapture(1)
@@ -451,7 +503,7 @@ def mainBsc():
                     window2['-CAMARA-'].update(data=imgbytes)
             else:
                 window2.hide()
-                result=Manualconfig(uimage)
+                #result=Manualconfig(uimage)
                 if result is not None:
                     print("todo bien")
                     result=cv2.rotate(result.copy(), cv2.ROTATE_90_COUNTERCLOCKWISE)
@@ -495,7 +547,7 @@ def mainBsc():
                     window2['-CAMARA-'].update(data=imgbytes)
             else:
                 window2.hide()
-                result=Manualconfig(uimage)
+                #result=Manualconfig(uimage)
                 if result is not None:
                     result=cv2.rotate(result.copy(), cv2.ROTATE_90_COUNTERCLOCKWISE)
                     imgbytes = cv2.imencode('.png', result)[1].tobytes()
@@ -515,11 +567,11 @@ def mainBsc():
             
         elif event == 'Imprimir':
             window2.hide()
-            WindowPrint()
+            #WindowPrint()
             window2.un_hide()  
         elif event == 'Opciones Avanzadas':
             window2.hide()
-            Opciones()  
+            #Opciones()  
             window2.un_hide()  
         if window2['-TOGGLE-GRAPHIC-'].metadata:
             #This is manual config:
@@ -530,7 +582,7 @@ def mainBsc():
             se=True
             #sg.popup("Automatico"+str(se))    
     window2.close()
-    
+
     cap.release()
 
 
