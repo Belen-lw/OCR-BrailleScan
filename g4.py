@@ -461,6 +461,11 @@ def mainBsc():
         elif event == 'Escanear D':
             cap = cv2.VideoCapture(0)
             ret,img =cap.read()
+            if not ret:
+                window2.hide()
+                sg.popup("no se detectó ninguna cámara")
+                window2.un_hide()
+                break
             height, width = img.shape[:2]
             imgCol = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
             if width > height:
