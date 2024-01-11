@@ -146,37 +146,67 @@ while True:  # Event Loop
         #sg.popup('Button a pressed!')
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
-        while True:
-            if not ret:
-                window2.hide()
-                sg.popup_error("Error al capturar video desde la cámara.")
-                
-                window2.un_hide()
-                break
+        if not ret:
+            window2.hide()
+            sg.popup_error("camara Derecha no conectada")
+            window2.un_hide()
+        else:
+            while True:
+                ret, frame = cap.read()
+                if not ret:
+                    window2.hide()
+                    sg.popup_error("Error al capturar video desde la cámara.")                 
+                    window2.un_hide()
+                    break
 
-            # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
-            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
-
-            window2['-CAMARA-'].update(data=imgbytes)
-
-            evento, _ = window2.read(timeout=20)
-            if evento == 'salir de cámara':
-                frame=fondoP2.copy()
-                frame=cv2.resize(fondoP2.copy(), P2camsize)
+                # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
                 imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+
                 window2['-CAMARA-'].update(data=imgbytes)
-                break
-        
-        frame==cv2.resize(fondoP2.copy(), P2camsize)
-        imgbytes = cv2.imencode('.png', frame)[1].tobytes()
-        window2['-CAMARA-'].update(data=imgbytes)
+
+                evento, _ = window2.read(timeout=20)
+                if evento == 'salir de cámara':
+                    frame=fondoP2.copy()
+                    frame=cv2.resize(fondoP2.copy(), P2camsize)
+                    imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                    window2['-CAMARA-'].update(data=imgbytes)
+                    break
+            
+            frame==cv2.resize(fondoP2.copy(), P2camsize)
+            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+            window2['-CAMARA-'].update(data=imgbytes)
     elif event == 'Mostrar cámara I':
-        #sg.popup('Button B pressed!')
-        cap = cv2.VideoCapture(1)
-        capturar_video(cap,window2)
-        frame=cv2.resize(fondoP2.copy(), P2camsize)
-        imgbytes = cv2.imencode('.png', frame)[1].tobytes()
-        window2['-CAMARA-'].update(data=imgbytes)
+        cap1 = cv2.VideoCapture(1)
+        ret, frame = cap1.read()
+        if not ret:
+            window2.hide()
+            sg.popup_error("camara Izquierda no conectada")
+            window2.un_hide()
+        else:
+            while True:
+                ret, frame = cap1.read()
+                if not ret:
+                    window2.hide()
+                    sg.popup_error("Error al capturar video desde la cámara.")                 
+                    window2.un_hide()
+                    break
+
+                # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
+                imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+
+                window2['-CAMARA-'].update(data=imgbytes)
+
+                evento, _ = window2.read(timeout=20)
+                if evento == 'salir de cámara':
+                    frame=fondoP2.copy()
+                    frame=cv2.resize(fondoP2.copy(), P2camsize)
+                    imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+                    window2['-CAMARA-'].update(data=imgbytes)
+                    break
+            
+            frame==cv2.resize(fondoP2.copy(), P2camsize)
+            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+            window2['-CAMARA-'].update(data=imgbytes)
         
     elif event == 'Escanear I':
         cap = cv2.VideoCapture(1)
