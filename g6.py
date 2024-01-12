@@ -52,10 +52,10 @@ jsonF='ocr-braillescan.json'
 
 #cam params
 cap=cv2.VideoCapture(0) #Derecha
-cap2=cv2.VideoCapture(1) #izquierda
+cap2=cv2.VideoCapture(2) #izquierda
 ret,_=cap2.read()
 if not ret:
-    cap2=cv2.VideoCapture(2)
+    cap2=cv2.VideoCapture(1)
     ret2,_=cap2.read()
     if not ret:
         cap2=cv2.VideoCapture(3)
@@ -450,6 +450,7 @@ def mainBsc():
                     window2.hide()
                     sg.popup_error("camara Derecha no conectada")
                     window2.un_hide()
+                    cap.release()
                     break
                 # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
                 imgbytes = cv2.imencode('.png', frame)[1].tobytes()
@@ -462,6 +463,7 @@ def mainBsc():
                     frame=cv2.resize(fondoP2.copy(), P2camsize)
                     imgbytes = cv2.imencode('.png', frame)[1].tobytes()
                     window2['-CAMARA-'].update(data=imgbytes)
+                    cap.release()
                     break
             
             frame==cv2.resize(fondoP2.copy(), P2camsize)
@@ -474,6 +476,7 @@ def mainBsc():
                     window2.hide()
                     sg.popup_error("camara Izquierda no conectada")                 
                     window2.un_hide()
+                    cap2.release()
                     break
 
                 # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
@@ -487,6 +490,7 @@ def mainBsc():
                     frame=cv2.resize(fondoP2.copy(), P2camsize)
                     imgbytes = cv2.imencode('.png', frame)[1].tobytes()
                     window2['-CAMARA-'].update(data=imgbytes)
+                    cap2.release()
                     break
             
             frame==cv2.resize(fondoP2.copy(), P2camsize)
