@@ -51,17 +51,6 @@ pathT='E:\\Tesseract-OCR\\tesseract'
 jsonF='ocr-braillescan.json'
 
 #cam params
-cap=cv2.VideoCapture(0) #Derecha
-cap2=cv2.VideoCapture(2) #izquierda
-ret,_=cap2.read()
-if not ret:
-    cap2=cv2.VideoCapture(1)
-    ret2,_=cap2.read()
-    if not ret:
-        cap2=cv2.VideoCapture(3)
-        ret3,_=cap2.read()
-        sg.popup('No se reconoció la camara izquierda')
-        
 #----------------------DASHBOARD PARAMS ------------------------
 P2camsize=(480,350)
 fondoP2=cv2.imread('logoO.png')
@@ -222,18 +211,6 @@ def Manualconfig(imageCol):
     ]
 
     window6 = sg.Window('Image Processing GUI', layout, finalize=True,grab_anywhere=True)
-    
-    screen_width = sg.tk.Tk().winfo_screenwidth()
-    screen_height = sg.tk.Tk().winfo_screenheight()
-
-    # Calcular posición de la ventana para centrarla
-    window_width = window6.TKroot.winfo_width()
-    window_height = window6.TKroot.winfo_height()
-    window_x = (screen_width - window_width) // 2
-    window_y = (screen_height - window_height) // 2
-
-    # Mover la ventana a la posición calculada
-    window6.TKroot.geometry(f"+{window_x}+{window_y}")
     
     
     
@@ -402,35 +379,46 @@ def capturar_video(cap,window2):
     
 def mainBsc():
     global se
-    #   
+    
+    cap=cv2.VideoCapture(0) #Derecha
+    cap2=cv2.VideoCapture(2) #izquierda
+    ret,_=cap2.read()
+    if not ret:
+        cap2=cv2.VideoCapture(1)
+        ret2,_=cap2.read()
+        if not ret:
+            cap2=cv2.VideoCapture(3)
+            ret3,_=cap2.read()
+            sg.popup('No se reconoció la camara izquierda')
+        
     top_banner = [
-        [sg.Text('BrailleScan                ', font='Any 20', background_color=DARK_HEADER_COLOR,pad=(BPAD_TOP)),
+        [sg.Text('BrailleScan Printer             ', font='Any 23', background_color=DARK_HEADER_COLOR,pad=(BPAD_TOP)),
         sg.Text(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), font='Any 14', background_color=DARK_HEADER_COLOR)]]
     block_2 = [
         #[sg.Text('Block 2', font='Any 8')],
-        [sg.Button('Mostrar cámara I', size=(9, 2), font='Any 8'), sg.Button('Mostrar cámara D', size=(9, 2), font='Any 8')],
-        [sg.Button('Escanear I', size=(9, 2), font='Any 8'), sg.Button('Escanear D', size=(9, 2), font='Any 8')],
+        [sg.Button('Mostrar cámara I', size=(9, 2), font='Any 9'), sg.Button('Mostrar cámara D', size=(9, 2), font='Any 9')],
+        [sg.Button('Escanear I', size=(9, 2), font='Any 9'), sg.Button('Escanear D', size=(9, 2), font='Any 9')],
     ]
 
     block_3 = [
         #[sg.Text('Block 3', font='Any 8')],
-        [sg.Button('Imprimir', size=(9, 2), font='Any 8'), sg.Button('Opciones Avanzadas', size=(9, 2), font='Any 8')],
-        [sg.Button('Exit', size=(22, 1), font='Any 8')],
+        [sg.Button('Imprimir', size=(9, 2), font='Any 9'), sg.Button('Opciones Avanzadas', size=(9, 2), font='Any 9')],
+        [sg.Button('Exit', size=(24, 1), font='Any 9')],
     ]
 
     block_4 = [
         [sg.Column([[sg.Button('salir de cámara'),
-                    sg.Text('Manual', font='Any 8'),
+                    sg.Text('Manual', font='Any 9'),
                     sg.Button(image_data=toggle_btn_off, key='-TOGGLE-GRAPHIC-', button_color=( sg.theme_background_color(), sg.theme_background_color()), border_width=0, metadata=False)]],
                     justification='left'),
-                    sg.Text('Automático', font='Any 8')],
-        [sg.Image(data=fondoP2A, key='-CAMARA-', size=(420, 310))], 
+                    sg.Text('Automático', font='Any 9')],
+        [sg.Image(data=fondoP2A, key='-CAMARA-', size=(420, 400))], 
     ]
     layout2 = [
-        [sg.Column(top_banner, size=(630, 50), pad=(0, 0), background_color=DARK_HEADER_COLOR)],
-        [sg.Column([[sg.Column(block_2, size=(190, 100))],
-                    [sg.Column(block_3, size=(190, 100))]], background_color=BORDER_COLOR),
-        sg.Column(block_4, size=(410, 390))]]
+        [sg.Column(top_banner, size=(630, 70), pad=(0, 0), background_color=DARK_HEADER_COLOR)],
+        [sg.Column([[sg.Column(block_2, size=(200, 100))],
+                    [sg.Column(block_3, size=(200, 100))]], background_color=BORDER_COLOR),
+        sg.Column(block_4, size=(410, 400))]]
     window2 = sg.Window('Dashboard PySimpleGUI-Style', layout2, margins=(0, 0), background_color=BORDER_COLOR, no_titlebar=True,
                     grab_anywhere=True)
 
@@ -463,7 +451,7 @@ def mainBsc():
                     frame=cv2.resize(fondoP2.copy(), P2camsize)
                     imgbytes = cv2.imencode('.png', frame)[1].tobytes()
                     window2['-CAMARA-'].update(data=imgbytes)
-                    cap.release()
+                    #cap.release()
                     break
             
             frame==cv2.resize(fondoP2.copy(), P2camsize)
@@ -476,7 +464,7 @@ def mainBsc():
                     window2.hide()
                     sg.popup_error("camara Izquierda no conectada")                 
                     window2.un_hide()
-                    cap2.release()
+                    #cap2.release()
                     break
 
                 # Convertir el fotograma de OpenCV a formato que PySimpleGUI pueda mostrar
@@ -619,23 +607,23 @@ def mainBsc():
 #--------------------LOGIN-----------------------------------------
 
 
-top = [[sg.Text('BRAILLESCAN', size=(20, 1), justification='c', pad=(BPAD_TOP), font='Courier 30 bold')]]
+top = [[sg.Text('BRAILLESCAN PRINTER', size=(22, 1), justification='c', pad=(BPAD_TOP), font='Courier 30 bold')]]
 
-block_3 = [[sg.Button('Empezar', size=(10, 2), font='Any 13')],
-           [sg.Button('Apagar', size=(10, 2), font='Any 13')]]
+block_3 = [[sg.Button('Empezar', size=(13, 2), font='Any 13')],
+           [sg.Button('Apagar', size=(13, 2), font='Any 13')]]
 
 block_2 = [[sg.Column([[sg.Button(image_data=fondoP2W, size=(9, 2), font='Any 8', key='-wifi-')]])]]
 
 block_4 = [[sg.Image(data=fondo, size=Pf)]]
 
-layout = [[sg.Column(top, size=(680, 60), pad=BPAD_TOP)],
-          [sg.Column([[sg.Column(block_3, size=(150, 120), pad=BPAD_LEFT_INSIDE)],
-                       [sg.Column(block_2, size=(160, 120), pad=BPAD_LEFT_INSIDE)]
+layout = [[sg.Column(top, size=(710, 60), pad=BPAD_TOP)],
+          [sg.Column([[sg.Column(block_3, size=(170, 120), pad=BPAD_LEFT_INSIDE)],
+                       [sg.Column(block_2, size=(180, 120), pad=BPAD_LEFT_INSIDE)]
                        ], background_color='#2b475d'),
-           sg.Column(block_4, size=(540,400))]]
+           sg.Column(block_4, size=(560,420))]]
 
 window = sg.Window('Dashboard PySimpleGUI-Style', layout, margins=(0, 0),
-                   background_color='#2b475d', no_titlebar=True, grab_anywhere=True,size=(600,480))
+                   background_color='#2b475d', no_titlebar=True, grab_anywhere=True,size=(645,480))
 b=False
 while True:
     event1,value1=window.read()
